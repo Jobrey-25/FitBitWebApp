@@ -1,0 +1,124 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user profile",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "profilePicture": { "type": "string" },
+        "idDocument": { "type": "string" },
+        "medicalClearance": { "type": "string" },
+        "role": { "type": "string", "enum": ["member", "admin", "trainer"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "fullName", "email", "role"]
+    },
+    "Membership": {
+      "title": "Membership",
+      "description": "User subscription details",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "planType": { "type": "string", "enum": ["monthly", "quarterly", "annual"] },
+        "status": { "type": "string", "enum": ["pending", "active", "expired", "cancelled"] },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "planType", "status"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Membership payment record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "planType": { "type": "string" },
+        "paymentDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" }
+      },
+      "required": ["userId", "amount", "paymentDate"]
+    },
+    "Trainer": {
+      "title": "Trainer",
+      "description": "Gym personal trainers",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "specialization": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "bio": { "type": "string" }
+      },
+      "required": ["name", "specialization"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Trainer session bookings",
+      "type": "object",
+      "properties": {
+        "memberId": { "type": "string" },
+        "trainerId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["scheduled", "completed", "cancelled"] }
+      },
+      "required": ["memberId", "trainerId", "date", "time", "status"]
+    },
+    "ContactMessage": {
+      "title": "Contact Message",
+      "description": "Messages from contact form",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Registry of authorized admin IDs",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" }
+      },
+      "required": ["uid"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "memberships": {
+      "schema": "Membership",
+      "description": "User subscriptions"
+    },
+    "payments": {
+      "schema": "Payment",
+      "description": "Payment logs"
+    },
+    "trainers": {
+      "schema": "Trainer",
+      "description": "List of trainers"
+    },
+    "appointments": {
+      "schema": "Appointment",
+      "description": "Trainer bookings"
+    },
+    "contact_messages": {
+      "schema": "ContactMessage",
+      "description": "Support messages"
+    },
+    "admins": {
+      "schema": "Admin",
+      "description": "Admin authorization list"
+    }
+  }
+}
